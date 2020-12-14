@@ -16,11 +16,11 @@ $ cd ..
 ## Fetch sources
 
 ```
-git clone https://github.com/Xilinx/linux-xlnx.git
-git clone https://github.com/Xilinx/u-boot-xlnx.git
-git clone https://github.com/Xilinx/device-tree-xlnx.git
-git clone https://git.kernel.org/pub/scm/utils/dtc/dtc.git
-git clone https://github.com/Xilinx/arm-trusted-firmware.git
+$ git clone https://github.com/Xilinx/linux-xlnx.git
+$ git clone https://github.com/Xilinx/u-boot-xlnx.git
+$ git clone https://github.com/Xilinx/device-tree-xlnx.git
+$ git clone https://git.kernel.org/pub/scm/utils/dtc/dtc.git
+$ git clone https://github.com/Xilinx/arm-trusted-firmware.git
 ```
 
 ## Build fsbl
@@ -157,4 +157,28 @@ root@ubuntu:# sed -i -e 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
  - linux-xlnx/arch/arm64/boot/dts/xilinx/zynqmp-te0802-02.dtb
 - extract user land into the 2nd partition
 
+## PL configuration
+
+Run the following commands on TE0802.
+
+```
+$ cat > fpga.dts
+/dts-v1/;
+/ {
+    fragment@0 {
+        target-path = "/fpga-full";
+        __overlay__ {
+            firmware-name = "fpga.bin";
+        };
+    };
+};
+Ctrl-D
+$ dtc -I dts -O dtb -o fpga.dtb fpga.dts
+$ python3 fpga-bit2bin.py -f test.bit test.bin
+$ su -
+# mkdir -p /lib/firmware
+# cp ~user/test.bit /lib/firmware/fpga.bin
+# mkdir -p /sys/kernel/config/device-tree/overlays/fpga
+# cp ~user/fpga.dtb /sys/kernel/config/device-tree/overlays/fpga/dtbo
+```
 
