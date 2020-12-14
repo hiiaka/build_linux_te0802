@@ -1,4 +1,4 @@
-# Building Linux for Trenz TE8020
+# Building Ubuntu/Linux for Trenz TE8020
 
 ## Environment
 
