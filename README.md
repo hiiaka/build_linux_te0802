@@ -53,7 +53,7 @@ $ cd ..
 
 ```
 $ export CROSS_COMPILE=aarch64-linux-gnu-
-$ cd ${WORK}/arm-trusted-firmware
+$ cd arm-trusted-firmware
 $ make PLAT=zynqmp RESET_TO_BL31=1
 $ cd ..
 ```
@@ -62,7 +62,7 @@ $ cd ..
 If you want to build your own device tree at this time.
 
 ```
-$ cd ${WORK}/device-tree-xlnx
+$ cd device-tree-xlnx
 $ git checkout xilinx-v2019.1
 $ cp ../hw/te0802_test/te0802_test.sdk/design_1_wrapper.hdf .
 $ hsi
