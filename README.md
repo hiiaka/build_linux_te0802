@@ -152,10 +152,10 @@ root@ubuntu:# sed -i -e 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
 
 - make FAT32(1st) and Ext4(2nd) partitions
 - copy the following files int the 1st partition
- - boot/BOOT.bin
- - boot/boot.scr
- - linux-xlnx/arch/arm64/boot/Image
- - linux-xlnx/arch/arm64/boot/dts/xilinx/zynqmp-te0802-02.dtb
+  - boot/BOOT.bin
+  - boot/boot.scr
+  - linux-xlnx/arch/arm64/boot/Image
+  - linux-xlnx/arch/arm64/boot/dts/xilinx/zynqmp-te0802-02.dtb
 - extract user land into the 2nd partition
 
 ## PL configuration
