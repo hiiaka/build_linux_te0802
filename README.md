@@ -97,7 +97,7 @@ $ cd ..
 ```
 $ export CROSS_COMPILE=aarch64-linux-gnu-
 $ cd linux-xlnx
-$ patch -p < ../linux-xlnx.patch
+$ patch -p1 < ../linux-xlnx.patch
 $ make ARCH=arm64 xilinx_zynqmp_defconfig
 $ make ARCH=arm64 menuconfig
 $ make ARCH=arm64 -j8
