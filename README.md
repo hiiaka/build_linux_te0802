@@ -85,7 +85,7 @@ $ export CROSS_COMPILE=aarch64-linux-gnu-
 $ export ARCH=aarch64
 $ cd u-boot-xlnx
 $ make distclean
-$ patch -p1 < u-boot-xlnx.patch
+$ patch -p1 < ../u-boot-xlnx.patch
 $ make xilinx_zynqmp_virt_defconfig
 $ export DEVICE_TREE="zynqmp-te0802-02"
 $ make -j8
