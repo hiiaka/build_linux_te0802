@@ -88,7 +88,7 @@ $ make distclean
 $ patch -p1 < u-boot-xlnx.patch
 $ make xilinx_zynqmp_virt_defconfig
 $ export DEVICE_TREE="zynqmp-te0802-02"
-$ make
+$ make -j8
 $ cd ..
 ```
 
@@ -100,7 +100,7 @@ $ cd linux-xlnx
 $ patch -p < ../linux-xlnx.patch
 $ make ARCH=arm64 xilinx_zynqmp_defconfig
 $ make ARCH=arm64 menuconfig
-$ make ARCH=arm64
+$ make ARCH=arm64 -j8
 $ cd ..
 ```
 
