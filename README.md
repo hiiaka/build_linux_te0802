@@ -112,7 +112,7 @@ $ cp ../fsbl/fsbl/executable.elf fsbl.elf
 $ cp ../pmc/pmu/executable.elf pmufw.elf
 $ cp ../arm-trusted-firmware/build/zynqmp/release/bl31/bl31.elf .
 $ cp ../u-boot-xlnx/u-boot.elf .
-$ cp ../hw/te0802_test/te0802_test.runs/impl_1/design_1_wrapper.hdf .
+$ cp ../hw/te0802_test/te0802_test.runs/impl_1/design_1_wrapper.bit test.bit
 $ bootgen -image ../boot.bif -arch zynqmp -w -o i BOOT.bin
 $ ../u-boot-xlnx/tools/mkimage -A arm64 -O linux -T script -C none -a 0 -e 0 -n "boot.scr" -d ../boot.script boot.scr
 $ cd ..
@@ -153,6 +153,7 @@ root@ubuntu:# sed -i -e 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
 - make FAT32(1st) and Ext4(2nd) partitions
 - copy the following files int the 1st partition
  - boot/BOOT.bin
+ - boot/boot.scr
  - linux-xlnx/arch/arm64/boot/Image
  - linux-xlnx/arch/arm64/boot/dts/xilinx/zynqmp-te0802-02.dtb
 - extract user land into the 2nd partition
