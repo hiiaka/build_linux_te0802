@@ -28,7 +28,7 @@ $ git clone https://github.com/Xilinx/arm-trusted-firmware.git
 ```
 $ export CROSS_COMPILE=aarch64-linux-gnu-
 $ mkdir fsbl; cd fsbl
-$ cp ../hw/te0802_test/te0802_test.sdk/desgin_1_wrapper.hdf .
+$ cp ../hw/te0802_test/te0802_test.sdk/design_1_wrapper.hdf .
 $ hsi
 hsi% set hwdsgn [open_hw_design design_1_wrapper.hdf]
 hsi% generate_app -hw $hwdsgn -os standalone -proc psu_cortexa53_0 -app zynqmp_fsbl -compile -sw fsbl -dir fsbl
@@ -41,7 +41,7 @@ $ cd ..
 ```
 $ export CROSS_COMPILE=aarch64-linux-gnu-
 $ mkdir pmc; cd pmc
-$ cp ../hw/te0802_test/te0802_test.sdk/desgin_1_wrapper.hdf .
+$ cp ../hw/te0802_test/te0802_test.sdk/design_1_wrapper.hdf .
 $ hsi
 hsi% set hwdsgn [open_hw_design design_1_wrapper.hdf]
 hsi% generate_app -hw $hwdsgn -os standalone -proc psu_pmu_0 -app zynqmp_pmufw -compile -sw pmufw -dir pmu
