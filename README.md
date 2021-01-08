@@ -183,3 +183,80 @@ $ su -
 # cp ~user/fpga.dtb /sys/kernel/config/device-tree/overlays/fpga/dtbo
 ```
 
+## Setup X
+(cf. https://qiita.com/ikwzm/items/2a0fbfd2938a893e57d4)
+
+Work on the actual environment on TE0802.
+
+Install required package
+
+```
+sudo apt install x-window-system-core
+sudo apt install twm jwm
+sudo apt install libdrm-dev \
+                 libudev-dev \
+                 libxext-dev \
+                 pkg-config \
+                 x11proto-core-dev \
+                 x11proto-fonts-dev \
+                 x11proto-gl-dev \
+                 x11proto-xf86dri-dev \
+                 xutils-dev \
+                 xserver-xorg-dev \
+                 quilt \
+                 dh-autoreconf
+```
+
+Build a X-server driver for Xilinx's ARM SoC
+
+```
+mkdir xserver-xorg-video-armsoc-xilinx
+cd xserver-xorg-video-armsoc-xilinx
+git init
+git remote add freedesktop https://anongit.freedesktop.org/git/xorg/driver/xf86-video-armsoc.git
+git fetch freedesktop
+git merge freedesktop/master
+git clone https://github.com/Xilinx/meta-xilinx/
+patch -p1 < meta-xilinx/meta-xilinx-bsp/recipes-graphics/xorg-driver/xf86-video-armsoc/0001-src-drmmode_xilinx-Add-the-dumb-gem-support-for-Xili.patch
+git add --update
+git add src/drmmode_xilinx/
+git commit -m "[add] src/drmmode_xilinx"
+./autogen.sh
+make clean
+./configure --prefix=/usr
+make
+```
+
+Create `/exc/X11/xorg.conf` as the following.
+
+```
+Section "Device"
+    Identifier  "ZynqMP"
+    Driver      "armsoc"
+    Option      "DEBUG" "true"
+EndSection
+Section "Screen"
+    Identifier  "DefaultScreen"
+    Device      "ZynqMP"
+EndSection
+```
+
+Create `/root/.xsession` as the following.
+
+```
+#!/bin/sh
+exec jwm
+```
+
+After creating `/root/.xsession`, add x-permission for the file
+
+```
+chmod 755 /root/.xsession
+```
+
+Login from console, and start X server
+
+```
+startx
+```
+
