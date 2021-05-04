@@ -2,3 +2,7 @@ hw/te0802_test
 *.log
 *.jou
 *.str
+boot
+fsbl
+image
+pmc
