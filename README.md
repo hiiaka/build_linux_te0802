@@ -16,11 +16,11 @@ $ cd ..
 ## Fetch sources
 
 ```
-$ git clone https://github.com/Xilinx/linux-xlnx.git
-$ git clone https://github.com/Xilinx/u-boot-xlnx.git
-$ git clone https://github.com/Xilinx/device-tree-xlnx.git
+$ git clone https://github.com/Xilinx/linux-xlnx.git -b xilinx-v2020.2 --depth 1
+$ git clone https://github.com/Xilinx/u-boot-xlnx.git -b xilinx-v2020.2 --depth 1
+$ git clone https://github.com/Xilinx/device-tree-xlnx.git -b xilinx-v2020.2 --depth 1
 $ git clone https://git.kernel.org/pub/scm/utils/dtc/dtc.git
-$ git clone https://github.com/Xilinx/arm-trusted-firmware.git
+$ git clone https://github.com/Xilinx/arm-trusted-firmware.git -b xilinx-v2020.2 --depth
 ```
 
 ## Build fsbl
@@ -28,11 +28,10 @@ $ git clone https://github.com/Xilinx/arm-trusted-firmware.git
 ```
 $ export CROSS_COMPILE=aarch64-linux-gnu-
 $ mkdir fsbl; cd fsbl
-$ cp ../hw/te0802_test/te0802_test.sdk/design_1_wrapper.hdf .
-$ hsi
-hsi% set hwdsgn [open_hw_design design_1_wrapper.hdf]
-hsi% generate_app -hw $hwdsgn -os standalone -proc psu_cortexa53_0 -app zynqmp_fsbl -compile -sw fsbl -dir fsbl
-hsi% quit
+$ cp ../hw/te0802_test/te0802_test.sdk/design_1_wrapper.xsa .
+$ xsct ../gen_fsbl.tcl
+set hwdsgn [hsi::open_hw_design design_1_wrapper.xsa]
+hsi::generate_app -hw $hwdsgn -os standalone -proc psu_cortexa53_0 -app zynqmp_fsbl -compile -sw fsbl -dir fsbl
 $ cd ..
 ```
 
@@ -41,11 +40,10 @@ $ cd ..
 ```
 $ export CROSS_COMPILE=aarch64-linux-gnu-
 $ mkdir pmc; cd pmc
-$ cp ../hw/te0802_test/te0802_test.sdk/design_1_wrapper.hdf .
-$ hsi
-hsi% set hwdsgn [open_hw_design design_1_wrapper.hdf]
-hsi% generate_app -hw $hwdsgn -os standalone -proc psu_pmu_0 -app zynqmp_pmufw -compile -sw pmufw -dir pmu
-hsi% quit
+$ cp ../hw/te0802_test/te0802_test.sdk/design_1_wrapper.xsa .
+$ xsct ../gen_pmc.tcl
+set hwdsgn [hsi::open_hw_design design_1_wrapper.xsa]
+hsi::generate_app -os standalone -hw $hwdsgn -proc psu_pmu_0 -app zynqmp_pmufw -compile -sw pmufw -dir pmu
 $ cd ..
 ```
 
@@ -63,10 +61,9 @@ If you want to build your own device tree at this time.
 
 ```
 $ cd device-tree-xlnx
-$ git checkout xilinx-v2019.1
-$ cp ../hw/te0802_test/te0802_test.sdk/design_1_wrapper.hdf .
+$ cp ../hw/te0802_test/te0802_test.sdk/design_1_wrapper.xsa .
 $ hsi
-hsi% open_hw_design design_1_wrapper.hdf
+hsi% open_hw_design design_1_wrapper.xsa
 hsi% set_repo_path .
 hsi% create_sw_design device-tree -os device_tree -proc psu_cortexa53_0
 hsi% generate_target -dir my_dts
