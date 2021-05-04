@@ -1,4 +1,4 @@
-image : {
+all : {
        [destination_cpu = a53-0, bootloader]fsbl.elf
        [pmufw_image]pmufw.elf
        [destination_device = pl] test.bit
