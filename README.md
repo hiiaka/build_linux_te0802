@@ -2,7 +2,7 @@
 
 ## Environment
 
-- Vivado 2019.1.3
+- Vivado 2020.2.2
 - The board file for TE0802 (`trenz.biz:te0802_2cg_1e:part0:2.0`) - [Included TRD](https://wiki.trenz-electronic.de/display/PD/TE0802+Test+Board#TE0802TestBoard-Download)
 
 ## Build Hardware

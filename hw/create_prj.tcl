@@ -159,45 +159,23 @@ set obj [get_filesets sources_1]
 set_property -name "top" -value "design_1_wrapper" -objects $obj
 
 # Set 'sources_1' fileset object
-set obj [get_filesets sources_1]
-# Import local files from the original project
-set files [list \
- [file normalize "${origin_dir}/src/ila_0.xci" ]\
-]
-set imported_files [import_files -fileset sources_1 $files]
+# None
 
 # Set 'sources_1' fileset file properties for remote files
 # None
 
 # Set 'sources_1' fileset file properties for local files
-set file "ila_0/ila_0.xci"
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
-set_property -name "registered_with_manager" -value "1" -objects $file_obj
-if { ![get_property "is_locked" $file_obj] } {
-  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
-}
+# None
 
 
 # Set 'sources_1' fileset object
-set obj [get_filesets sources_1]
-# Import local files from the original project
-set files [list \
- [file normalize "${origin_dir}/src/vio_0.xci" ]\
-]
-set imported_files [import_files -fileset sources_1 $files]
+# None
 
 # Set 'sources_1' fileset file properties for remote files
 # None
 
 # Set 'sources_1' fileset file properties for local files
-set file "vio_0/vio_0.xci"
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
-set_property -name "registered_with_manager" -value "1" -objects $file_obj
-if { ![get_property "is_locked" $file_obj] } {
-  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
-}
+# None
 
 
 # Create 'constrs_1' fileset (if not found)
@@ -259,7 +237,7 @@ proc cr_bd_design_1 { parentCell } {
   ##################################################################
   set bCheckIPs 1
   if { $bCheckIPs == 1 } {
-     set list_check_ips "\ 
+     set list_check_ips "\
   xilinx.com:ip:axi_gpio:2.0\
   xilinx.com:ip:proc_sys_reset:5.0\
   xilinx.com:ip:zynq_ultra_ps_e:3.3\
@@ -991,12 +969,12 @@ proc cr_bd_design_1 { parentCell } {
 
   validate_bd_design
   save_bd_design
-  close_bd_design $design_name 
+  close_bd_design $design_name
 }
 # End of cr_bd_design_1()
 cr_bd_design_1 ""
-set_property REGISTERED_WITH_MANAGER "1" [get_files design_1.bd ] 
-set_property SYNTH_CHECKPOINT_MODE "Hierarchical" [get_files design_1.bd ] 
+set_property REGISTERED_WITH_MANAGER "1" [get_files design_1.bd ]
+set_property SYNTH_CHECKPOINT_MODE "Hierarchical" [get_files design_1.bd ]
 
 # Create 'synth_1' run (if not found)
 if {[string equal [get_runs -quiet synth_1] ""]} {
@@ -1294,19 +1272,20 @@ update_compile_order -fileset sources_1
 
 reset_project
 
-launch_runs synth_1 -jobs 4
+launch_runs synth_1 -jobs 16
 wait_on_run synth_1
 
-launch_runs impl_1 -jobs 4
+launch_runs impl_1 -jobs 16
 wait_on_run impl_1
 
-launch_runs impl_1 -to_step write_bitstream -jobs 4
+launch_runs impl_1 -to_step write_bitstream -jobs 16
 wait_on_run impl_1
 
 file mkdir $proj_dir/te0802_test.sdk
-file copy -force $proj_dir/te0802_test.runs/impl_1/design_1_wrapper.sysdef $proj_dir/te0802_test.sdk/design_1_wrapper.hdf
+write_hw_platform -fixed -force -include_bit -file $proj_dir/te0802_test.sdk/design_1_wrapper.xsa
 
 close_project
 
 quit
+
 

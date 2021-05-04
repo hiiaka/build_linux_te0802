@@ -28,10 +28,10 @@ module design_1_wrapper
 
   assign LED = GPIO_0_tri_o[7:0];
 
-  vio_0 vio_0_i (
-    .clk(pl_clk0_0),           // input wire clk
-    .probe_in0(GPIO_0_tri_o),  // input wire [31 : 0] probe_in0
-    .probe_out0(GPIO_1_tri_i)  // output wire [31 : 0] probe_out0
-  );
+//  vio_0 vio_0_i (
+//    .clk(pl_clk0_0),           // input wire clk
+//    .probe_in0(GPIO_0_tri_o),  // input wire [31 : 0] probe_in0
+//    .probe_out0(GPIO_1_tri_i)  // output wire [31 : 0] probe_out0
+//  );
 
 endmodule
