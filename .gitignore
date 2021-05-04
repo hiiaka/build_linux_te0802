@@ -2,6 +2,7 @@ hw/te0802_test
 *.log
 *.jou
 *.str
+arm64
 boot
 fsbl
 image
